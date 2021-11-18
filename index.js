@@ -1,4 +1,4 @@
-// REQUIRE
+
 const express = require("express");
 const { MongoClient } = require("mongodb");
 const cors = require("cors");
@@ -11,16 +11,19 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// OPEN API
+// API
 app.get("/", async (req, res) => {
   res.send("server is cholse!");
 });
 
-// CONNECTION URI
+//URI
 
 
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.bmd33.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, {
+
+
+
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -34,20 +37,20 @@ async function run() {
     const order_collection = database.collection("orders");
     const review_collection = database.collection("review");
 
-    //#user add: post api
+    // post api
     app.post("/users", async (req, res) => {
       const result = await user_collection.insertOne(req.body);
       res.json(result);
     });
 
-    //#user add: post api
+    // post api
     app.get("/admin/:email", async (req, res) => {
       const email = req.params.email;
       const result = await user_collection.findOne({ email: email });
       res.json(result);
     });
 
-    //# here a new admin: post api
+    // post api
     app.put("/addAdmin", async (req, res) => {
       const email = req.body.email;
       const result = await user_collection.updateOne(
@@ -59,13 +62,13 @@ async function run() {
       res.json(result);
     });
 
-    //#all products load: get api
+    //load: get api
     app.get("/products", async (req, res) => {
       const result = await product_collection.find({}).toArray();
       res.json(result);
     });
 
-    //#single data load: get api
+    // load: get api
     app.get("/placeorder/:id", async (req, res) => {
       const result = await product_collection.findOne({
         _id: ObjectId(req.params.id),
@@ -73,7 +76,7 @@ async function run() {
       res.json(result);
     });
 
-    //# place order: post api
+    // post api
     app.post("/placeorder", async (req, res) => {
       const order = req.body;
       order.status = "Pending";
@@ -82,7 +85,7 @@ async function run() {
       res.json(result);
     });
 
-    //# load all orders- get api
+    //- get api
     app.get("/orders", async (req, res) => {
       const email = req.query.email;
       let result;
@@ -94,7 +97,7 @@ async function run() {
       res.json(result);
     });
 
-    //# Change status: put api
+    //put api
     app.put("/updateOrderStatus", async (req, res) => {
       const id = req.body.id;
       const status = req.body.status;
@@ -107,7 +110,7 @@ async function run() {
       res.json(result.modifiedCount);
     });
 
-    //# update a product: put api
+
     app.put("/updateProduct", async (req, res) => {
       const id = req.query.id;
       const product = req.body;
@@ -120,7 +123,7 @@ async function run() {
       res.json(result);
     });
 
-    //# delete single order: delete api
+
     app.delete("/placeorder/:id", async (req, res) => {
       const result = await order_collection.deleteOne({
         _id: ObjectId(req.params.id),
@@ -128,25 +131,24 @@ async function run() {
       res.json(result);
     });
 
-    //# add one new product: post api
     app.post("/addProduct", async (req, res) => {
       const result = await product_collection.insertOne(req.body);
       res.json(result);
     });
 
-    //# add a review: post api
+
     app.post("/addReview", async (req, res) => {
       const result = await review_collection.insertOne(req.body);
       res.json(result);
     });
 
-    //# load all reviews: get api
+
     app.get("/reviews", async (req, res) => {
       const result = await review_collection.find({}).toArray();
       res.json(result);
     });
 
-    //# delete a product: delete api
+
     app.delete("/deleteProduct/:id", async (req, res) => {
       const result = await product_collection.deleteOne({
         _id: ObjectId(req.params.id),
@@ -154,7 +156,7 @@ async function run() {
       res.json(result);
     });
 
-    //#single order loads: get api
+
     app.get("/updateOne/:id", async (req, res) => {
       const result = await product_collection.findOne({
         _id: ObjectId(req.params.id),
@@ -162,7 +164,7 @@ async function run() {
       res.json(result);
     });
   } finally {
-    // await client.close();
+
   }
 }
 run().catch(console.dir);

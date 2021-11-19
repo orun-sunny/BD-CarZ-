@@ -7,11 +7,11 @@ const ObjectId = require("mongodb").ObjectId;
 const port = process.env.PORT || 5000;
 const app = express();
 
-//MIDDLEWARE
+//MIDDLEWARE added
 app.use(cors());
 app.use(express.json());
 
-// API
+// API added
 app.get("/", async (req, res) => {
   res.send("server is cholse!");
 });
@@ -27,7 +27,8 @@ const client = new MongoClient(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
-//DB CONNECTION
+//DB CONNECTION added 
+//env file added extra
 async function run() {
   try {
     await client.connect();
@@ -37,20 +38,20 @@ async function run() {
     const order_collection = database.collection("orders");
     const review_collection = database.collection("review");
 
-    // post api
+    // post api added
     app.post("/users", async (req, res) => {
       const result = await user_collection.insertOne(req.body);
       res.json(result);
     });
 
-    // post api
+    // post api added here
     app.get("/admin/:email", async (req, res) => {
       const email = req.params.email;
       const result = await user_collection.findOne({ email: email });
       res.json(result);
     });
 
-    // post api
+    // post api added here
     app.put("/addAdmin", async (req, res) => {
       const email = req.body.email;
       const result = await user_collection.updateOne(
@@ -62,14 +63,14 @@ async function run() {
       res.json(result);
     });
 
-    //load: get api
+    //load: get api added here
     app.get("/products", async (req, res) => {
       const result = await product_collection.find({}).toArray();
       res.json(result);
     });
 
 
-    // post api
+    // post api added here
     app.post("/placeorder", async (req, res) => {
       const order = req.body;
       order.status = "Pending";
@@ -78,7 +79,7 @@ async function run() {
       res.json(result);
     });
 
-    // load: get api
+    // load: get api added here
     app.get("/placeorder/:id", async (req, res) => {
       const result = await product_collection.findOne({
         _id: ObjectId(req.params.id),
@@ -101,7 +102,7 @@ async function run() {
       res.json(result);
     });
 
-    //put api
+    //put api added here
     app.put("/updateOrderStatus", async (req, res) => {
       const id = req.body.id;
       const status = req.body.status;

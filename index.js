@@ -114,7 +114,7 @@ async function run() {
       res.json(result.modifiedCount);
     });
 
-
+    //update product here
     app.put("/updateProduct", async (req, res) => {
       const id = req.query.id;
       const product = req.body;
@@ -134,27 +134,27 @@ async function run() {
       });
       res.json(result);
     });
-
+    //added here post of add review
     app.post("/addReview", async (req, res) => {
       const result = await review_collection.insertOne(req.body);
       res.json(result);
     });
 
-
+    // add product here
     app.post("/addProduct", async (req, res) => {
       const result = await product_collection.insertOne(req.body);
       res.json(result);
     });
 
 
-
+    //add review here
 
     app.get("/reviews", async (req, res) => {
       const result = await review_collection.find({}).toArray();
       res.json(result);
     });
 
-
+    // delete product here
     app.delete("/deleteProduct/:id", async (req, res) => {
       const result = await product_collection.deleteOne({
         _id: ObjectId(req.params.id),

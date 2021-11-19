@@ -1,20 +1,18 @@
-# Project: 
+# Bd CARz-website-client-side-orun-sunny
 
-Description: BD-Carz Website people can details , also can buy a car
+Live Site Link:  https://bd-carz.web.app/
+Client link: https://github.com/programming-hero-web-course-4/niche-website-client-side-orun-sunny
 
-#
-
-Live Site Link: 
-
-Technology we use to build this project:
+we use to build these project:
 
 
-- NODE.js
-- React.js
-- React Bootstrap
-- Added two extra sections
-- task done
-- detail route
+- NODE.JS
+-Readme added
+-.gitignore file added
+- .env.local  added
+- Bootstrap
 - Firebase
 - MongoDB
-
+- React.js
+- React hook form
+- React Rating

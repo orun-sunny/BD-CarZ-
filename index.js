@@ -68,13 +68,6 @@ async function run() {
       res.json(result);
     });
 
-    // load: get api
-    app.get("/placeorder/:id", async (req, res) => {
-      const result = await product_collection.findOne({
-        _id: ObjectId(req.params.id),
-      });
-      res.json(result);
-    });
 
     // post api
     app.post("/placeorder", async (req, res) => {
@@ -85,7 +78,18 @@ async function run() {
       res.json(result);
     });
 
-    //- get api
+    // load: get api
+    app.get("/placeorder/:id", async (req, res) => {
+      const result = await product_collection.findOne({
+        _id: ObjectId(req.params.id),
+      });
+      res.json(result);
+    });
+
+
+
+
+    //- get all  api here
     app.get("/orders", async (req, res) => {
       const email = req.query.email;
       let result;
@@ -131,16 +135,18 @@ async function run() {
       res.json(result);
     });
 
+    app.post("/addReview", async (req, res) => {
+      const result = await review_collection.insertOne(req.body);
+      res.json(result);
+    });
+
+
     app.post("/addProduct", async (req, res) => {
       const result = await product_collection.insertOne(req.body);
       res.json(result);
     });
 
 
-    app.post("/addReview", async (req, res) => {
-      const result = await review_collection.insertOne(req.body);
-      res.json(result);
-    });
 
 
     app.get("/reviews", async (req, res) => {

@@ -13,6 +13,8 @@ app.use(cors({
     // 'http://localhost:5173',
     'https://bd-carz.web.app/',
     'https://bd-carz.firebaseapp.com/',
+    'http://localhost:3001'
+
   ],
   credentials: true
 }));
